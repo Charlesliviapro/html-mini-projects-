@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - Choose Your Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        header {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6366f1;
+        }
+        
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #6366f1;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 20px 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .billing-toggle {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .toggle-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .toggle-option {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .toggle-option.active {
+            background: #6366f1;
+            color: white;
+        }
+        
+        .savings-badge {
+            background: #10b981;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid #6366f1;
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #6366f1;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .plan-description {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-currency {
+            font-size: 1.5rem;
+            vertical-align: super;
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .check-icon {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .cross-icon {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .cta-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cta-button-primary {
+            background: #6366f1;
+            color: white;
+        }
+        
+        .cta-button-primary:hover {
+            background: #4f46e5;
+        }
+        
+        .cta-button-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .cta-button-secondary:hover {
+            background: #bdc3c7;
+        }
+        
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 0 20px;
+        }
+        
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+        
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .faq-answer {
+            color: #7f8c8d;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .price {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">CloudFlow</div>
+            <nav>
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="hero">
+        <h1>Simple, Transparent Pricing</h1>
+        <p>Choose the perfect plan for your needs. All plans include a 14-day free trial.</p>
+    </div>
+    
+    <div class="billing-toggle">
+        <div class="toggle-container">
+            <span class="toggle-option active">Monthly</span>
+            <span class="toggle-option">Yearly <span class="savings-badge">Save 20%</span></span>
+        </div>
+    </div>
+    
+    <div class="pricing-container">
+        <div class="pricing-card">
+            <div class="plan-name">Starter</div>
+            <div class="plan-description">Perfect for individuals and small projects</div>
+            <div class="price">
+                <span class="price-currency">$</span>9<span class="price-period">/month</span>
+            </div>
+            <ul class="features">
+                <li><span class="check-icon">✓</span> Up to 5 projects</li>
+                <li><span class="check-icon">✓</span> 10 GB storage</li>
+                <li><span class="check-icon">✓</span> Basic support</li>
+                <li><span class="check-icon">✓</span> Mobile app access</li>
+                <li><span class="cross-icon">✗</span> Custom domain</li>
+                <li><span class="cross-icon">✗</span> Advanced analytics</li>
+                <li><span class="cross-icon">✗</span> Priority support</li>
+            </ul>
+            <button class="cta-button cta-button-secondary">Get Started</button>
+        </div>
+        
+        <div class="pricing-card featured">
+            <div class="popular-badge">Most Popular</div>
+            <div class="plan-name">Professional</div>
+            <div class="plan-description">Great for growing businesses and teams</div>
+            <div class="price">
+                <span class="price-currency">$</span>29<span class="price-period">/month</span>
+            </div>
+            <ul class="features">
+                <li><span class="check-icon">✓</span> Unlimited projects</li>
+                <li><span class="check-icon">✓</span> 100 GB storage</li>
+                <li><span class="check-icon">✓</span> Priority support</li>
+                <li><span class="check-icon">✓</span> Mobile app access</li>
+                <li><span class="check-icon">✓</span> Custom domain</li>
+                <li><span class="check-icon">✓</span> Advanced analytics</li>
+                <li><span class="cross-icon">✗</span> White-label solution</li>
+            </ul>
+            <button class="cta-button cta-button-primary">Get Started</button>
+        </div>
+        
+        <div class="pricing-card">
+            <div class="plan-name">Enterprise</div>
+            <div class="plan-description">For large organizations with advanced needs</div>
+            <div class="price">
+                <span class="price-currency">$</span>99<span class="price-period">/month</span>
+            </div>
+            <ul class="features">
+                <li><span class="check-icon">✓</span> Unlimited everything</li>
+                <li><span class="check-icon">✓</span> 1 TB storage</li>
+                <li><span class="check-icon">✓</span> 24/7 dedicated support</li>
+                <li><span class="check-icon">✓</span> Mobile app access</li>
+                <li><span class="check-icon">✓</span> Custom domain</li>
+                <li><span class="check-icon">✓</span> Advanced analytics</li>
+                <li><span class="check-icon">✓</span> White-label solution</li>
+            </ul>
+            <button class="cta-button cta-button-secondary">Contact Sales</button>
+        </div>
+    </div>
+    
+    <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">Can I switch plans at any time?</div>
+            <div class="faq-answer">Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any charges.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What payment methods do you accept?</div>
+            <div class="faq-answer">We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for Enterprise plans.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Is there a free trial?</div>
+            <div class="faq-answer">Yes! All plans come with a 14-day free trial. No credit card required to start your trial.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What happens if I exceed my storage limit?</div>
+            <div class="faq-answer">We'll notify you when you're approaching your limit. You can upgrade your plan or purchase additional storage as needed.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Do you offer refunds?</div>
+            <div class="faq-answer">Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund.</div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 CloudFlow. All rights reserved.</p>
+    </footer>
+</body>
+</html>
